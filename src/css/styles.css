@@ -35,17 +35,19 @@ nav ul li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    border: 1px solid transparent;
 }
 
 nav ul li a:hover {
     color: black;
-    border-bottom: 1px solid black;
-    transition: 0.5s ease-in;
+    background-color: rgb(161, 161, 161);
+    border: 1px solid rgb(161, 161, 161);;
+    border-radius: 25px;
+    transition: 1s;
 }
 
 .active {
     border-top: 1px solid black;
-    border-bottom: 1px solid transparent;
 }
 
 h1 {
@@ -56,4 +58,34 @@ h1 {
 p {
     font-size: 1.1em;
     line-height: 1.6em;
+}
+
+.project-group {
+    display: grid;
+    grid-template-columns: 24% 24% 24% 24%;
+    gap: 15px;
+    justify-content: center;
+}
+
+.project-item {
+    padding: 20px;
+    color: white;
+    background-color: gray;
+}
+
+.project-heading {
+    margin-top: -15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.project-heading img {
+    width: 40px;
+}
+
+.project-heading img:hover {
+    transform: scale(1.5);
+    transition: 1s;
 }
