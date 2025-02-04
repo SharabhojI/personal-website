@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Building a Snake Game in Jack: Working With a Minimalist OOP Language">
+        <meta name="keywords" content="Jack programming, snake game, game development, nand2tetris">
+        <title>Building a Snake Game in Jack | Sharabhoj Iyengar</title>
+        <link href="../src/css/styles.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="../">Home</a></li>
+                    <li><a href="../projects">Projects</a></li>
+                    <li><a href="../experience">Experience</a></li>
+                    <li><a class="active" href="../blog">Blog</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <article class="blog-post">
+            <div class="blog-meta">
+                <div class="blog-info">
+                    <span class="date">February 3, 2025</span>
+                    <span class="reading-time">4 min read</span>
+                    <div class="tags">
+                        <span class="tag">Game Development</span>
+                        <span class="tag">nand2tetris</span>
+                        <span class="tag">Jack Programming Language</span>
+                    </div>
+                </div>
+            </div>
+
+            <h1>Building a Snake Game in Jack: Working With a Minimalist OOP Language</h1>
+
+            <div class="blog-content">
+                <p>Today, I want to share my experience developing a classic Snake game using Jack, a simple object-oriented programming language 
+                designed for educational purposes. This journey taught me valuable lessons about both game development and the constraints of working 
+                with a minimalist programming language.</p>
+
+                <h2>The Jack Language: Simple Yet Challenging</h2>
+                <p>Jack is an interesting language that strips away many features taken for granted in modern languages. There's no inheritance, no 
+                floating-point numbers, and even basic operators like != are missing. Instead of writing <code>if (x != y)</code>, you have to write 
+                <code>if (~(x = y))</code>. These limitations forced me to think differently about how I structure my code.</p>
+
+                <h2>Game Architecture</h2>
+                <p>I divided the game into four main classes:</p>
+                <ul>
+                    <li><code>Main</code>: The entry point</li>
+                    <li><code>Game</code>: The game loop and core logic</li>
+                    <li><code>Snake</code>: The snake's behavior and movement</li>
+                    <li><code>Food</code>: Food spawning and positioning</li>
+                </ul>
+                <p>The most challenging part was managing the snake's movement. I represented the snake as an array of x,y coordinate pairs, where each 
+                pair defines a segment's position. When the snake moves, each segment takes the position of the segment in front of it, and the head 
+                moves in the current direction.</p>
+
+                <h2>Memory Management Matters</h2>
+                <p>One aspect of Jack that really made me appreciate modern languages is manual memory management. Every object you create must be 
+                explicitly disposed of when you're done with it. My Game class's dispose method had to clean up both the snake and food objects:</p>
+<pre><code>method void dispose() {
+    do snake.dispose();
+    do food.dispose();
+    do Memory.deAlloc(this);
+    return;
+}</code></pre>
+
+                <h2>Random Number Generation</h2>
+                <p>Generating random positions for the food was tricky since Jack doesn't have a random number generator. I implemented a simple 
+                pseudo-random number generator using the following algorithm:</p>
+<pre><code>method void randomize() {
+    let seed = seed + 20251;
+    let seed = seed * 2377;
+    let seed = seed / 7;
+    // Use seed to calculate x,y positions
+    return;
+}</code></pre>
+
+                <h2>Control Flow Quirks</h2>
+                <p>The lack of else-if statements led to some deeply nested code. For example, handling keyboard input looks like this:</p>
+<pre><code>if (key = 131) { // Up
+    do snake.changeDirection(1);
+} else {
+    if (key = 133) { // Down
+        do snake.changeDirection(2);
+    } else {
+        if (key = 130) { // Left
+            do snake.changeDirection(3);
+        } else {
+            if (key = 132) { // Right
+                do snake.changeDirection(4);
+            }
+        }
+    }
+}</code></pre>
+                <p>Evidently not the most elegant of soulutions, but it got the job done.</p>
+
+                <h2>Graphics and Screen Management</h2>
+                <p>The game's visual elements are quite basic - the snake segments are rectangles, and the food is a circle. Jack's Screen class 
+                provides basic drawing primitives, but you have to manage everything at the pixel level. The screen is 512x256 pixels, and you need 
+                to be careful not to draw outside these boundaries.</p>
+
+                <h2>Lessons Learned</h2>
+                <p>Building this game taught me several valuable lessons:</p>
+                <ol>
+                    <li>The importance of careful memory management</li>
+                    <li>How to work within the constraints of a limited language</li>
+                    <li>The value of breaking down complex problems into smaller, manageable pieces</li>
+                    <li>The fundamentals of game loop implementation</li>
+                </ol>
+                <p>Most importantly, it gave me a deeper appreciation for the conveniences we have in modern programming languages. Every feature we 
+                take for granted today - garbage collection, rich standard libraries, complex control structures - exists because someone once had to 
+                program without it and said "there must be a better way."</p>
+            </div>
+        </article>
+    </body>
+</html>
